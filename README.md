@@ -180,3 +180,88 @@ In order to overwrite predefined environment configuration in the app, you can s
 ```bash
 docker run --rm -it -p 8000:8000 --env-file .env baby-tools-world:local
 ```
+
+---
+
+## Production Deployment
+
+### Prerequisites
+
+Check if Docker is installed:
+```bash
+docker --version
+```
+
+*If Docker is not installed, follow the [installation guide](https://docs.docker.com/engine/install/ubuntu/).*
+
+---
+
+### Repository Setup
+
+1. **Create Directory & Navigate**
+```bash
+mkdir ~/projects
+cd ~/projects
+```
+
+
+2. **Clone Repository**
+```bash
+git clone <repository-url>
+cd <repository-folder>
+```
+
+
+3. **Switch Branch** *(optional)*
+```bash
+git checkout <branch-name>
+```
+
+---
+
+### Setup & Deployment
+
+1. **Environment Configuration**
+Copy the example environment file and configure your variables:
+```bash
+cp example.env .env
+```
+*(Edit `.env` with your actual settings)*
+
+2. **Build the Image**
+```bash
+docker build -t baby-tools-world:live .
+```
+
+
+3. **Start the Container**
+```bash
+docker run -d --restart unless-stopped -p 8000:8000 --env-file .env baby-tools-world:live
+```
+
+---
+
+### Post-Deployment Commands
+
+Find your running `container_ID` using:
+
+```bash
+docker ps
+```
+
+* **Seed the Database:**
+```bash
+docker exec container_ID python manage.py seed_db
+```
+
+
+* **Create a Superuser:**
+```bash
+docker exec -it container_ID python manage.py createsuperuser
+```
+
+
+* **Stop the Container** *(if switching branches or redeploying)*:
+```bash
+docker stop container_ID
+```
