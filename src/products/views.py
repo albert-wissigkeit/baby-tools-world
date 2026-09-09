@@ -95,9 +95,11 @@ def product_detail(request, category_slug, pk):
                 comment.save()
                 messages.success(request, "Thank you for your rating.")
 
-            return redirect(f"{reverse('product_detail', kwargs={
-                    'category_slug': category_slug, 'pk': product.pk
-                    })}?submitted=1")
+            url = reverse(
+                "product_detail",
+                kwargs={"category_slug": category_slug, "pk": product.pk},
+            )
+            return redirect(f"{url}?submitted=1")
     else:
         # Pre-fill form for authenticated user with existing comment (if any)
         initial = {}

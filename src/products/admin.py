@@ -2,7 +2,6 @@ from django.contrib import admin
 
 from .models import Category, Comment, Product, Tag
 
-
 admin.site.register(Tag)
 
 
