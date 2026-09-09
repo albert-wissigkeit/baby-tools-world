@@ -38,7 +38,14 @@
             <div class="mb-3 text-muted">No ratings yet</div>
           {% endif %}
         {% endwith %}
-
+        <h4>Product Tags:</h4>
+        <div class="d-flex">
+          {% for tag in product.tags.all %}
+              <span class="border rounded m-1 p-1">{{ tag.name }}</span>
+            {% empty %}
+              <span class="border rounded m-1 p-1">No Tags added now.</span>
+          {% endfor %}
+        </div>
         <div class="btn btn-primary btn-center mt-auto">Buy now</div>
       </div>
 

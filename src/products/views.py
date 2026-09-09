@@ -18,7 +18,9 @@ def product_list(request, category_slug=None):
 
 def product_detail(request, category_slug, pk):
     product = get_object_or_404(
-        Product.objects.select_related("category").annotate(
+        Product.objects.select_related("category")
+        .prefetch_related("tags")
+        .annotate(
             avg_rating=Avg("comments__rating"), total_ratings=Count("comments")
         ),
         pk=pk,
