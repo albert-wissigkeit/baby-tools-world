@@ -1,3 +1,24 @@
+## Table of Contents
+
+- [Prerequisites](#prerequisites)
+- [Quickstart](#quickstart)
+- [Project Structure](#project-structure)
+  - [Apps Overview](#apps-overview)
+- [Usage](#usage)
+  - [Configuration](#configuration)
+  - [Running the linting tools](#running-the-linting-tools)
+  - [Testing](#testing)
+  - [Running with a WSGI Server](#running-with-a-wsgi-server)
+  - [Seeding the application with data](#seeding-the-application-with-data)
+  - [Containerization](#containerization)
+- [Production Deployment](#production-deployment)
+  - [Prerequisites](#prerequisites-1)
+  - [Repository Setup](#repository-setup)
+  - [Setup & Deployment](#setup--deployment)
+  - [Post-Deployment Commands](#post-deployment-commands)
+
+---
+
 # Baby Tools World
 
 This repository contains the source code of the 'Baby Tools World' which is a simple full stack shop application written in Python using Django 6.
