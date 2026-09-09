@@ -1,3 +1,13 @@
+# Baby Tools World
+
+This repository contains the source code of the 'Baby Tools World' which is a simple full stack shop application written in Python using Django 6.
+The project was developed for educational purposes only and therefore has no claim to feature completeness, or only minimal claims regarding application security, user experience, or design.
+
+> [!NOTE]
+> This project assumes you already know the python programming language
+
+---
+
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
@@ -12,20 +22,11 @@
   - [Seeding the application with data](#seeding-the-application-with-data)
   - [Containerization](#containerization)
 - [Production Deployment](#production-deployment)
-  - [Prerequisites](#prerequisites-1)
   - [Repository Setup](#repository-setup)
   - [Setup & Deployment](#setup--deployment)
   - [Post-Deployment Commands](#post-deployment-commands)
 
 ---
-
-# Baby Tools World
-
-This repository contains the source code of the 'Baby Tools World' which is a simple full stack shop application written in Python using Django 6.
-The project was developed for educational purposes only and therefore has no claim to feature completeness, or only minimal claims regarding application security, user experience, or design.
-
-> [!NOTE]
-> This project assumes you already know the python programming language
 
 ## Prerequisites
 
@@ -42,16 +43,16 @@ In order to quickly get started with the project follow these steps:
 1. clone the repository
 1. nagivate to the repository
 1. (optional) create a virtual environment with `python -m venv my-venv`
-    1. activate the virtual environment:
-        - on Windows run: `my-venv/Scripts/activate`
-        - on MacOS/Linux run: `source my-venv/bin/activate`
+   1. activate the virtual environment:
+      - on Windows run: `my-venv/Scripts/activate`
+      - on MacOS/Linux run: `source my-venv/bin/activate`
 1. install the project dependencies with `pip install -r requirements.txt`
 1. configure required application environment variables
-    - `cp example.env .env`
+   - `cp example.env .env`
 1. go to the `src` directory via `cd src`
 1. prepare the database (create and apply migrations)
-    1. `python manage.py makemigrations`
-    1. `python manage.py migrate`
+   1. `python manage.py makemigrations`
+   1. `python manage.py migrate`
 1. start the application with `python manage.py runserver`
 1. verify the application is running by visiting `localhost:8000`
 1. (optional) create a superuser by running: `python manage.py createsuperuser`
@@ -81,11 +82,11 @@ In this section you can read about the project a bit more in detail.
 To configure the project, follow these steps:
 
 1. Copy the example environment file to the `src` directory: `cp example.env src/.env`.
-    - the file needs to be stored next to the manage.py file in order to function properly.
-    Other locations might also work but there is no guarantuee, and in last consequence you will need to update to project correspondingly.
+   - the file needs to be stored next to the manage.py file in order to function properly.
+     Other locations might also work but there is no guarantuee, and in last consequence you will need to update to project correspondingly.
 2. Open your `src/.env` and set the required environment variables:
-    - `ALLOWED_HOSTS`: provide a list of comma-separated values for the allowed host configuration => Defaults to `'localhost, 127.0.0.1, 0.0.0.0'`
-    - `DEBUG`: Set to `True` for development or `False` for production. Defaults to `True`
+   - `ALLOWED_HOSTS`: provide a list of comma-separated values for the allowed host configuration => Defaults to `'localhost, 127.0.0.1, 0.0.0.0'`
+   - `DEBUG`: Set to `True` for development or `False` for production. Defaults to `True`
 
 ### Running the linting tools
 
@@ -99,8 +100,14 @@ To run code-quality checks that check the code-style and formatting you can run 
 ```bash
 # to format the python code
 black .
+# Check Python code style
+flake8 .
 # to apply correct sorting for imports
 isort .
+# Check Markdown files for errors
+npx markdownlint-cli2 "README.md"
+# Auto-fix Markdown errors
+npx markdownlint-cli2 --fix "README.md"
 ```
 
 #### When to run this
@@ -154,7 +161,8 @@ the application can handle HTTP requests efficiently and reliably in a scalable 
 > but sometimes running `gunicorn` on windows results in problems that can be circumvented by using `waitress` instead.
 >
 > See the following [quote](https://docs.gunicorn.org/en/stable/index.html) from the official gunicorn website:
->> Gunicorn ‘Green Unicorn’ is a Python WSGI HTTP Server for UNIX.
+>
+> > Gunicorn ‘Green Unicorn’ is a Python WSGI HTTP Server for UNIX.
 
 For more information about WSGI and its configuration, see the [wsgi documentation](./docs/wsgi.md).
 
@@ -206,59 +214,62 @@ docker run --rm -it -p 8000:8000 --env-file .env baby-tools-world:local
 
 ## Production Deployment
 
-### Prerequisites
-
 Check if Docker is installed:
+
 ```bash
 docker --version
 ```
 
-*If Docker is not installed, follow the [installation guide](https://docs.docker.com/engine/install/ubuntu/).*
+_If Docker is not installed, follow the [installation guide](https://docs.docker.com/engine/install/ubuntu/)._
 
 ---
 
 ### Repository Setup
 
 1. **Create Directory & Navigate**
-```bash
-mkdir ~/projects
-cd ~/projects
-```
 
+   ```bash
+   mkdir ~/projects
+   cd ~/projects
+   ```
 
 2. **Clone Repository**
-```bash
-git clone <repository-url>
-cd <repository-folder>
-```
 
+   ```bash
+   git clone <repository-url>
+   cd <repository-folder>
+   ```
 
-3. **Switch Branch** *(optional)*
-```bash
-git checkout <branch-name>
-```
+3. **Switch Branch** _(optional)_
+
+   ```bash
+   git checkout <branch-name>
+   ```
 
 ---
 
 ### Setup & Deployment
 
 1. **Environment Configuration**
-Copy the example environment file and configure your variables:
-```bash
-cp example.env .env
-```
-*(Edit `.env` with your actual settings)*
+    Copy the example environment file and configure your variables:
+
+    ```bash
+    cp example.env .env
+    ```
+
+    _(Edit `.env` with your actual settings)_
 
 2. **Build the Image**
-```bash
-docker build -t baby-tools-world:live .
-```
 
+    ```bash
+    docker build -t baby-tools-world:live .
+    ```
 
 3. **Start the Container**
-```bash
-docker run -d --restart unless-stopped -p 8000:8000 --env-file .env baby-tools-world:live
-```
+
+    ```bash
+    docker run -d --restart unless-stopped -p 8000:8000 --env-file .env baby-tools-world:live
+    ```
 
 ---
 
@@ -270,19 +281,20 @@ Find your running `container_ID` using:
 docker ps
 ```
 
-* **Seed the Database:**
+- **Seed the Database:**
+
 ```bash
 docker exec container_ID python manage.py seed_db
 ```
 
+- **Create a Superuser:**
 
-* **Create a Superuser:**
 ```bash
 docker exec -it container_ID python manage.py createsuperuser
 ```
 
+- **Stop the Container** _(if switching branches or redeploying)_:
 
-* **Stop the Container** *(if switching branches or redeploying)*:
 ```bash
 docker stop container_ID
 ```
