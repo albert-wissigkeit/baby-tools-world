@@ -42,9 +42,7 @@ def product_detail(request, category_slug, pk):
     product = get_object_or_404(
         Product.objects.select_related("category")
         .prefetch_related("tags")
-        .annotate(
-            avg_rating=Avg("comments__rating"), total_ratings=Count("comments")
-        ),
+        .annotate(avg_rating=Avg("comments__rating"), total_ratings=Count("comments")),
         pk=pk,
         category__slug=category_slug,
     )
@@ -52,9 +50,7 @@ def product_detail(request, category_slug, pk):
     related_products = (
         Product.objects.filter(category=product.category)
         .exclude(pk=product.pk)
-        .annotate(
-            avg_rating=Avg("comments__rating"), total_ratings=Count("comments")
-        )
+        .annotate(avg_rating=Avg("comments__rating"), total_ratings=Count("comments"))
         .order_by("-avg_rating", "-total_ratings", "name")[:8]
     )
 
@@ -63,9 +59,7 @@ def product_detail(request, category_slug, pk):
     if request.method == "POST":
         form = CommentForm(
             request.POST,
-            initial={
-                "user": request.user if request.user.is_authenticated else None
-            },
+            initial={"user": request.user if request.user.is_authenticated else None},
         )
         if form.is_valid():
             rating = form.cleaned_data["rating"]
@@ -84,9 +78,7 @@ def product_detail(request, category_slug, pk):
                     comment.save()
                 messages.success(
                     request,
-                    "Your rating was {}.".format(
-                        "submitted" if created else "updated"
-                    ),
+                    "Your rating was {}.".format("submitted" if created else "updated"),
                 )
             else:
                 # Guest: create a new comment (no uniqueness constraint)
@@ -103,10 +95,7 @@ def product_detail(request, category_slug, pk):
     else:
         # Pre-fill form for authenticated user with existing comment (if any)
         initial = {}
-        if (
-            request.user.is_authenticated
-            and request.GET.get("submitted") != "1"
-        ):
+        if request.user.is_authenticated and request.GET.get("submitted") != "1":
             existing = product.comments.filter(user=request.user).first()
             if existing:
                 initial = {"rating": existing.rating, "text": existing.text}
