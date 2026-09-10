@@ -236,14 +236,14 @@ _If Docker is not installed, follow the [installation guide](https://docs.docker
 2. **Clone Repository**
 
    ```bash
-   git clone <repository-url>
-   cd <repository-folder>
+   git clone git@github.com:albert-wissigkeit/baby-tools-world.git
+   cd baby-tools-world
    ```
 
 3. **Switch Branch** _(optional)_
 
    ```bash
-   git checkout <branch-name>
+   git checkout add-product-tags
    ```
 
 ---
@@ -257,7 +257,7 @@ _If Docker is not installed, follow the [installation guide](https://docs.docker
     cp example.env .env
     ```
 
-    _(Edit `.env` with your actual settings)_
+    > **_NOTE:_** Edit `.env` with your actual settings
 
 2. **Build the Image**
 
